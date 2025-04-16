@@ -1,5 +1,5 @@
 {
-  "name": "@mjt-games/game-core-2025",
+  "name": "@mjt-games/game-ecs-2025",
   "version": "2025.4.16-1218",
   "sideEffects": false,
   "description": "Game Common 2025",
@@ -20,6 +20,15 @@
   "keywords": [],
   "author": "Matt Taylor (https://mjt.dev)",
   "license": "MIT",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "devDependencies": {
     "typedoc": "^0.27.9",
     "typescript": "^5.8.3",
