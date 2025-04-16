@@ -1,0 +1,1 @@
+{"version":3,"file":"StringSelectors.js","sourceRoot":"","sources":["../../src/type/StringSelectors.ts"],"names":[],"mappings":"AAAA,4CAA4C","sourcesContent":["/**  String form selectors like \"core.id\" */\n\nexport type StringSelectors<E> = {\n  [NS in keyof E & string]: {\n    [K in keyof E[NS] & string]: `${NS}.${K}`;\n  }[keyof E[NS] & string];\n}[keyof E & string];\n"]}
