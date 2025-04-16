@@ -1,0 +1,36 @@
+{
+  "name": "@mjt-games/game-core-2025",
+  "version": "0.0.1",
+  "sideEffects": false,
+  "description": "Game Common 2025",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "docs": "typedoc src/index.ts",
+    "build-docs": "pnpm run build && pnpm run docs",
+    "changelog": "./scripts/changes.sh > CHANGELOG.md",
+    "changelog-version": "pnpm run changelog && ./scripts/version.sh",
+    "release": "./scripts/publish-build.sh",
+    "check": "tsc --noEmit -w",
+    "test": "vitest",
+    "start": "vite --strictPort --force --port 7733",
+    "build": "tsc -b"
+  },
+  "keywords": [],
+  "author": "Matt Taylor (https://mjt.dev)",
+  "license": "MIT",
+  "devDependencies": {
+    "typedoc": "^0.27.9",
+    "typescript": "^5.8.3",
+    "vite": "^6.2.6",
+    "vite-plugin-arraybuffer": "^0.1.0",
+    "vitest": "^3.1.1"
+  },
+  "dependencies": {
+    "@mjt-engine/assert": "github:mjt-engine/assert",
+    "@mjt-engine/byte": "github:mjt-engine/byte",
+    "@mjt-engine/message": "github:mjt-engine/message",
+    "@mjt-engine/object": "github:mjt-engine/object"
+  }
+}
