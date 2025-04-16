@@ -1,6 +1,6 @@
 const DirtySymbol = Symbol("dirty");
 
-export const LazyObjects = () => {
+export const LazyObjects = <T extends object>() => {
   let suppressDirty = false;
   let suppressLazy = false;
   type LazyObjectType = "array" | "object";
@@ -8,9 +8,7 @@ export const LazyObjects = () => {
     [DirtySymbol]: boolean;
   };
 
-  const createLazyObject = <T extends object>(
-    type: LazyObjectType = "object"
-  ): LazyObject<T> => {
+  const createLazyObject = (type: LazyObjectType = "object"): LazyObject<T> => {
     const root: any = type == "object" ? {} : [];
     Object.defineProperty(root, DirtySymbol, {
       value: false,
@@ -91,7 +89,7 @@ export const LazyObjects = () => {
 
   const wrapLazyObject = <T extends object>(obj: Partial<T>): LazyObject<T> => {
     const type = Array.isArray(obj) ? "array" : "object";
-    const lazy: any = createLazyObject<T>(type);
+    const lazy: any = createLazyObject(type);
 
     for (const [key, value] of Object.entries(obj)) {
       if (value === undefined) {
@@ -107,9 +105,9 @@ export const LazyObjects = () => {
 
     return lazy;
   };
-  const from = <T extends object>(obj?: Partial<T>): LazyObject<T> => {
+  const from = (obj?: Partial<T>): LazyObject<T> => {
     if (obj === undefined) {
-      return createLazyObject<T>();
+      return createLazyObject();
     }
     suppressDirty = true;
     const lazy = wrapLazyObject(obj);

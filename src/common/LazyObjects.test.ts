@@ -17,10 +17,10 @@ describe("LazyObjects", () => {
   type MyEntity = Entity<
     [IdComponent, PositionComponent, HealthComponent, TagsComponent]
   >;
-  const lazy = LazyObjects();
+  const lazy = LazyObjects<MyEntity>();
 
   test("from empty", () => {
-    const testEntity: MyEntity = lazy.from<MyEntity>();
+    const testEntity: MyEntity = lazy.from();
 
     testEntity.core.id = 1;
 
@@ -36,7 +36,7 @@ describe("LazyObjects", () => {
   });
 
   test("dirty", () => {
-    const testEntity: MyEntity = lazy.from<MyEntity>();
+    const testEntity: MyEntity = lazy.from();
 
     expect(lazy.isDirty(testEntity)).toBe(false);
     testEntity.core.id = 1;
@@ -44,7 +44,7 @@ describe("LazyObjects", () => {
     expect(lazy.isDirty(testEntity)).toBe(true);
   });
   test("keys", () => {
-    const testEntity: MyEntity = lazy.from<MyEntity>();
+    const testEntity: MyEntity = lazy.from();
     testEntity.core.id = 1;
     testEntity.world.position = {
       x: 1,
@@ -54,7 +54,7 @@ describe("LazyObjects", () => {
     expect(keys).toEqual(["core", "world"]);
   });
   test("stringify", () => {
-    const testEntity: MyEntity = lazy.from<MyEntity>();
+    const testEntity: MyEntity = lazy.from();
     testEntity.core.id = 1;
     testEntity.world.position = {
       x: 1,
@@ -66,12 +66,12 @@ describe("LazyObjects", () => {
     );
   });
   test("arrays", () => {
-    const testEntity: MyEntity = lazy.from<MyEntity>();
+    const testEntity: MyEntity = lazy.from();
     testEntity.core.tags = ["tag1", "tag2"];
     expect(testEntity.core.tags).toEqual(["tag1", "tag2"]);
   });
   test("from existing", () => {
-    const testEntity: MyEntity = lazy.from<MyEntity>({
+    const testEntity: MyEntity = lazy.from({
       core: {
         id: 1,
         tags: ["tag1", "tag2"],

@@ -26,20 +26,20 @@ describe("filterEntities", () => {
       NameComponent
     ]
   >;
-  const lazy = LazyObjects();
-  const testEntity1 = lazy.from<MyEntity>({
+  const lazy = LazyObjects<MyEntity>();
+  const testEntity1 = lazy.from({
     core: { id: 1, tags: ["foo"] },
     world: { position: { x: -1, y: 2 } },
     stats: { health: 100 },
     char: { name: "Alice" },
   });
-  const testEntity2 = lazy.from<MyEntity>({
+  const testEntity2 = lazy.from({
     core: { id: 2, tags: ["foo", "bar"] },
     world: { position: { x: 0, y: 2, z: 3 } },
     stats: { health: 18 },
     char: { name: "Bob" },
   });
-  const testEntity3 = lazy.from<MyEntity>({
+  const testEntity3 = lazy.from({
     core: { id: 3, tags: ["bar"] },
     stats: { health: 5 },
     char: { name: "Carol" },
