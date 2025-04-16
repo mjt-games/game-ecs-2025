@@ -1,0 +1,1 @@
+{"version":3,"file":"Component.js","sourceRoot":"","sources":["../../src/type/Component.ts"],"names":[],"mappings":"","sourcesContent":["export type Component<\n  N extends string = string,\n  K extends string = string,\n  V = unknown\n> = {\n  [key in N]: {\n    [key in K]: V;\n  };\n};\n"]}

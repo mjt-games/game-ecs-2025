@@ -1,0 +1,1 @@
+{"root":["../src/index.ts","../src/common/lazyobjects.test.ts","../src/common/lazyobjects.ts","../src/common/queryfilter.test.ts","../src/common/queryfilter.ts","../src/system/systems.ts","../src/type/component.ts","../src/type/componentselector.ts","../src/type/entity.ts","../src/type/query.ts","../src/type/stringselectors.ts"],"version":"5.8.3"}

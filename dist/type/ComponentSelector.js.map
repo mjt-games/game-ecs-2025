@@ -1,0 +1,1 @@
+{"version":3,"file":"ComponentSelector.js","sourceRoot":"","sources":["../../src/type/ComponentSelector.ts"],"names":[],"mappings":"","sourcesContent":["import { Component } from \"./Component\";\n\nexport type ComponentSelector<C extends Component, N extends keyof C> = {\n  namespace: N;\n  key: keyof C[N];\n};\n"]}
