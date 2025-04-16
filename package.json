@@ -1,6 +1,6 @@
 {
   "name": "@mjt-games/game-core-2025",
-  "version": "0.0.1",
+  "version": "2025.4.16-1216",
   "sideEffects": false,
   "description": "Game Common 2025",
   "main": "./dist/index.js",
