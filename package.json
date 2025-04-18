@@ -16,7 +16,8 @@
     "test": "vitest",
     "start": "vite build --watch",
     "build": "NODE_OPTIONS=--max-old-space-size=8192 vite build && pnpm dts",
-    "dts": "tsc"
+    "dts": "tsc",
+    "dts:watch": "tsc -w"
   },
   "keywords": [],
   "author": "Matt Taylor (https://mjt.dev)",
@@ -31,6 +32,7 @@
     "dist"
   ],
   "devDependencies": {
+    "@types/node": "^22.14.1",
     "typedoc": "^0.27.9",
     "typescript": "^5.8.3",
     "vite": "^6.2.6",
