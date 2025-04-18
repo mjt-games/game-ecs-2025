@@ -1,10 +1,15 @@
 import { defineConfig } from "vite";
-import arraybuffer from "vite-plugin-arraybuffer";
+
 export default defineConfig({
-  assetsInclude: ["**/*.wasm"],
-  base: "./", // Use relative paths for assets
-  plugins: [arraybuffer()],
   build: {
-    // other build options
+    lib: {
+      entry: "src/index.ts",
+      name: "Module",
+      fileName: "index",
+    },
+    rollupOptions: {
+      external: [], // Leave empty for fully self-contained
+    },
+    target: "esnext",
   },
 });

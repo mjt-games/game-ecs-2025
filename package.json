@@ -14,8 +14,9 @@
     "release": "./scripts/publish-build.sh",
     "check": "tsc --noEmit -w",
     "test": "vitest",
-    "start": "vite --strictPort --force --port 7733",
-    "build": "tsc -b"
+    "start": "vite build --watch",
+    "build": "NODE_OPTIONS=--max-old-space-size=8192 vite build && pnpm dts",
+    "dts": "tsc"
   },
   "keywords": [],
   "author": "Matt Taylor (https://mjt.dev)",
