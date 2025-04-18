@@ -53,3 +53,4 @@ git add -f "$DOCS_DIR"/. "$DOCS_DIR"/*
 git commit -m "Added build artifacts for ${VERSION}"
 
 "${SCRIPT_DIR}/version.sh" "$VERSION"
+git branch -D "$BRANCH_NAME"
