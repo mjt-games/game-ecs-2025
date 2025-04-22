@@ -9,7 +9,8 @@ function emitDtsPlugin() {
       return new Promise<void>((resolve, reject) => {
         exec("tsc", (err, stdout, stderr) => {
           if (err) {
-            console.error("Type generation failed:\n", stderr);
+            console.error("Type generation failed:\n", stdout);
+            console.error(stderr);
             reject(err); // ❌ Causes build to fail
           } else {
             console.log("Type declarations generated.", stdout);
