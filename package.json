@@ -14,9 +14,8 @@
     "release": "./scripts/publish-build.sh",
     "check": "tsc --noEmit -w",
     "test": "vitest",
-    "start": "vite build --watch",
-    "build": "NODE_OPTIONS=--max-old-space-size=8192 vite build && pnpm dts",
-    "dts": "tsc",
+    "start": "vite --strictPort --force --port 7122",
+    "build": "NODE_OPTIONS=--max-old-space-size=8192 vite build",
     "dts:watch": "tsc -w"
   },
   "keywords": [],
@@ -31,17 +30,32 @@
   "files": [
     "dist"
   ],
+  "peerDependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/icons-material": "^6.4.11",
+    "@mui/material": "^6.4.11",
+    "@mui/system": "^6.4.11",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
   "devDependencies": {
     "@types/node": "^22.14.1",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "eventemitter3": "^5.0.1",
     "typedoc": "^0.27.9",
     "typescript": "^5.8.3",
-    "vite": "^6.2.6",
+    "vite": "^6.3.2",
     "vite-plugin-arraybuffer": "^0.1.0",
-    "vitest": "^3.1.1"
+    "vitest": "^3.1.2"
   },
   "dependencies": {
+    "@mjt-engine/animate": "github:mjt-engine/animate",
     "@mjt-engine/assert": "github:mjt-engine/assert",
     "@mjt-engine/byte": "github:mjt-engine/byte",
+    "@mjt-engine/error": "github:mjt-engine/error",
+    "@mjt-engine/mb": "github:mjt-engine/mb",
     "@mjt-engine/message": "github:mjt-engine/message",
     "@mjt-engine/object": "github:mjt-engine/object"
   }

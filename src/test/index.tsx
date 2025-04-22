@@ -1,0 +1,9 @@
+import ReactDOM from "react-dom/client";
+import { App } from "./App";
+import { testLocalRemoteWindow } from "./tests/testLocalRemoteWindow";
+import { runAllTests } from "./runAllTests";
+
+(() => {
+  ReactDOM.createRoot(document.getElementById("root")!).render(<App />);
+  runAllTests();
+})();
