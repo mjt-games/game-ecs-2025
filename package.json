@@ -1,6 +1,6 @@
 {
   "name": "@mjt-games/game-ecs-2025",
-  "version": "2025.4.22-1704",
+  "version": "2025.4.22-1710",
   "sideEffects": false,
   "description": "Game Common 2025",
   "main": "./dist/index.js",

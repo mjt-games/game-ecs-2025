@@ -2,6 +2,8 @@
 
 
 ## 2025-04-22
+- removed gameloop module ([1dd96eb](https://github.com/mjt-games/game-ecs-2025/commit/1dd96eb168dd4799760372b418124bb85cb09332)) by Matt Taylor
+- Update changelog ([506b331](https://github.com/mjt-games/game-ecs-2025/commit/506b331987b6f25319c665f899aec289fbcbd69c)) by Matt Taylor
 - Added tests, and did much work on ECS System ([1404f18](https://github.com/mjt-games/game-ecs-2025/commit/1404f182fa441941b51ae58257cd4fb5d290fadf)) by Matt Taylor
 
 ## 2025-04-18
