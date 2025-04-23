@@ -13,19 +13,26 @@ export const LocalRemoteWindowEmitter = <T>(
     close: () => {
       abortController.abort();
     },
-    emit: (event: string, ...args: any[]) => {
-      remote.postMessage(args[0]);
+    emit: (selector: string, ...args: any[]) => {
+      remote.postMessage({ selector, payload: args[0] }, "*");
     },
-    on: (event: string, callback: (...args: any[]) => void) => {
+    on: (selector: string, callback: (...args: any[]) => void) => {
       const listener = async (e: MessageEvent) => {
-        return callback(e.data);
+        const { selector: s, payload } = e.data as {
+          selector: string;
+          payload: any;
+        };
+        if (s !== selector) {
+          return;
+        }
+        return callback(payload);
       };
       listeners.set(callback, listener);
       local.addEventListener("message", listener, {
         signal: abortController.signal,
       });
     },
-    off: (event: string, callback: (...args: any[]) => void) => {
+    off: (selector: string, callback: (...args: any[]) => void) => {
       const listener = listeners.get(callback);
       local.removeEventListener("message", listener as EventListener);
     },

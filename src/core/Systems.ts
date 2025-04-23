@@ -20,8 +20,19 @@ export const Systems = <Components extends Component[]>(
     system: System<Components>;
   }) => {
     nameToSystem.set(name, system);
-    bus.subscribe("runSystem", async (request) => {
-      const { entities, ids, name } = request;
+    bus.subscribe(`runSystem.${name}` as "runSystem", async (request) => {
+      // @ts-ignore
+      const { entities, ids, name: requestName, serialId } = request;
+      if (requestName !== name) {
+        return {
+          update: {
+            entities: [],
+            ids: [],
+          },
+          add: [],
+        };
+      }
+
       const system = nameToSystem.get(name);
       if (!system) {
         throw new Error(`System ${name} not found`);

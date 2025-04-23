@@ -34,8 +34,8 @@ export default defineConfig({
 
       // Externalize all deps and peer deps automatically
       external: [
-        ...Object.keys(dependencies || {}),
-        ...Object.keys(peerDependencies || {}),
+        // ...Object.keys(dependencies || {}),
+        // ...Object.keys(peerDependencies || {}),
       ],
     },
     target: "esnext",

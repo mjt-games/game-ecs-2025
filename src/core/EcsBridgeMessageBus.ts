@@ -2,6 +2,7 @@ import { ChannelMessage, EmitterChannel, MessageBus } from "@mjt-engine/mb";
 import { Component } from "../type/Component";
 import { EcsBridgeMap } from "./EcsBridgeMap";
 import { LocalRemoteWindowEmitter } from "./LocalRemoteWindowEmitter";
+import EventEmitter from "eventemitter3";
 
 export const EcsBridgeMessageBus = <Components extends Component[]>(
   props: Partial<Parameters<typeof MessageBus<EcsBridgeMap<Components>>>[0]> &

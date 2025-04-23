@@ -1,7 +1,7 @@
 import { CtxMapper, Tests } from "@mjt-engine/test";
 import { EcsBridgeMessageBus } from "../../core/EcsBridgeMessageBus";
 import { Systems } from "../../core/Systems";
-import { SystemLoop } from "./SystemLoop";
+import { SystemLoop } from "../../core/SystemLoop";
 import { Component } from "../../type/Component";
 import { Entity } from "../../type/Entity";
 

@@ -1,24 +1,31 @@
 import { Tick } from "@mjt-engine/animate";
-import { isUndefined } from "@mjt-engine/object";
-import { queryFilter } from "../../common/queryFilter";
-import { EcsBridgeMap } from "../../core/EcsBridgeMap";
-import { EcsBridgeMessageBus } from "../../core/EcsBridgeMessageBus";
-import { Component } from "../../type/Component";
-import { Entity } from "../../type/Entity";
+import { isDefined, isUndefined } from "@mjt-engine/object";
+import { queryFilter } from "../common/queryFilter";
+import { EcsBridgeMap } from "./EcsBridgeMap";
+import { EcsBridgeMessageBus } from "./EcsBridgeMessageBus";
+import { Component } from "../type/Component";
+import { Entity } from "../type/Entity";
 
 export const SystemLoop = async <Components extends Component[]>({
   signal,
   entities = [],
   registrations = [],
+  localWindow,
+  remoteWindow,
 }: Partial<{
   signal: AbortSignal;
   entities: Entity<Components>[];
   registrations: EcsBridgeMap<Components>["registerQuery"]["request"][];
+  localWindow: Window;
+  remoteWindow: Window;
 }> = {}) => {
   const updateEntities = (
     updatedEntities: Entity<Components>[],
     ids: number[]
   ) => {
+    if (ids.length !== updatedEntities.length) {
+      return;
+    }
     for (let i = 0; i < ids.length; i++) {
       const id = ids[i];
       const updatedEntity = updatedEntities[i];
@@ -28,6 +35,8 @@ export const SystemLoop = async <Components extends Component[]>({
 
   const bus = await EcsBridgeMessageBus({
     signal,
+    localWindow,
+    remoteWindow,
     options: {
       defaultTimeoutMs: 1000,
     },
@@ -59,17 +68,24 @@ export const SystemLoop = async <Components extends Component[]>({
         const filteredEntities = isUndefined(query)
           ? []
           : queryFilter(query)(entities);
-        const result = await bus.request("runSystem", {
+        const result = await bus.request(`runSystem.${name}` as "runSystem", {
           entities: filteredEntities as Entity<any>[],
           ids: filteredEntities.map((e) => entities.indexOf(e)),
           name,
+
+          // @ts-ignore
+          serialId: crypto.randomUUID(),
         });
         const { add, update } = result.data;
-        updateEntities(
-          update.entities as Entity<Components>[],
-          update.ids as number[]
-        );
-        entities.push(...(add as Entity<Components>[]));
+        if (isDefined(update)) {
+          updateEntities(
+            update.entities as Entity<Components>[],
+            update.ids as number[]
+          );
+        }
+        if (isDefined(add) && add.length > 0) {
+          entities.push(...(add as Entity<Components>[]));
+        }
       } catch (e) {
         console.error("Error in system loop: registration", registration);
         console.error(`Error in system: name: ${name}`, e);

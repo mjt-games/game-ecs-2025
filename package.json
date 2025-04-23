@@ -16,6 +16,7 @@
     "test": "vitest",
     "start": "vite --strictPort --force --port 7122",
     "build": "NODE_OPTIONS=--max-old-space-size=8192 vite build",
+    "build:watch": "vite build --watch",
     "dts:watch": "tsc -w"
   },
   "keywords": [],

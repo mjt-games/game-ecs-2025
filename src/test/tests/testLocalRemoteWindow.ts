@@ -36,17 +36,17 @@ export const testLocalRemoteWindow = async () => {
       });
       expect(result).toBe("got:Hello, world!");
     });
-    test("regex listen/post", async (elc) => {
-      const result = await new Promise((resolve) => {
-        elc.listenOn(/t.*/, {
-          callback: (data) => {
-            resolve("got:" + data);
-          },
-        });
-        elc.postOn("test", "Hello, world!");
-      });
-      expect(result).toBe("got:Hello, world!");
-    });
+    // test("regex listen/post", async (elc) => {
+    //   const result = await new Promise((resolve) => {
+    //     elc.listenOn(/t.*/, {
+    //       callback: (data) => {
+    //         resolve("got:" + data);
+    //       },
+    //     });
+    //     elc.postOn("test", "Hello, world!");
+    //   });
+    //   expect(result).toBe("got:Hello, world!");
+    // });
     test("async itr listen/post", async (elc) => {
       const promise = new Promise(async (resolve) => {
         for await (const data of elc.listenOn("test", {

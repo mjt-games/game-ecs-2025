@@ -12,3 +12,4 @@ export * from "./core/EcsBridgeMap";
 export * from "./core/EcsBridgeMessageBus";
 export * from "./core/SatisfiesConnectionMap";
 export * from "./core/Systems";
+export * from "./core/SystemLoop";
