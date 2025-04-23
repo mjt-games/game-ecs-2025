@@ -1,10 +1,10 @@
 import { CtxMapper, Tests } from "@mjt-engine/test";
-import { EcsBridgeMessageBus } from "../../core/EcsBridgeMessageBus";
+import { EcsBridge } from "./EcsBridge";
 
-type CtxObject = Awaited<ReturnType<typeof EcsBridgeMessageBus>>;
+type CtxObject = Awaited<ReturnType<typeof EcsBridge>>;
 const ctxMapper: CtxMapper<CtxObject> = async (test) => {
   const abortController = new AbortController();
-  const bus = await EcsBridgeMessageBus({
+  const ecs = await EcsBridge({
     signal: abortController.signal,
     // subscribers: {
     //   log: (message) => {
@@ -14,7 +14,7 @@ const ctxMapper: CtxMapper<CtxObject> = async (test) => {
   });
 
   try {
-    await test(bus);
+    await test(ecs);
     abortController.abort();
   } finally {
   }
@@ -26,17 +26,17 @@ export const testEcsBridgeMessageBus = async () => {
   });
 
   describe("EcsBridgeMessageBus", () => {
-    test("Basic test", async (bus) => {
-      expect(bus).toBeDefined();
+    test("Basic test", async (ecs) => {
+      expect(ecs).toBeDefined();
     });
 
-    test("test adding subscribers", async (bus) => {
+    test("adding subscribers", async (ecs) => {
       let result = "waiting...";
-      bus.subscribe("log", async (message) => {
+      ecs.bus.subscribe("log", async (message) => {
         console.log("Log message:", message);
         result = message;
       });
-      await bus.publish("log", "Hello, world!");
+      await ecs.bus.publish("log", "Hello, world!");
 
       expect(result).toEqual("waiting...");
       // expect to wait for the log message to be printed on next event loop

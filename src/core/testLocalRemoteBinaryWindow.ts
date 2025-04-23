@@ -1,5 +1,5 @@
 import { ChannelMessage, EmitterChannel } from "@mjt-engine/mb";
-import { LocalRemoteWindowEmitter } from "../../core/LocalRemoteWindowEmitter";
+import { LocalRemoteWindowEmitter } from "./LocalRemoteWindowEmitter";
 import { Tests, CtxMapper } from "@mjt-engine/test";
 
 type StringEmitterChannel = ReturnType<typeof EmitterChannel<Uint8Array>>;
@@ -11,7 +11,7 @@ const ctxMapper: CtxMapper<StringEmitterChannel> = async (test) => {
   const channel = EmitterChannel<Uint8Array>(emitter);
   try {
     await test(channel);
-    emitter.close();
+    emitter.removeAllListeners();
   } finally {
   }
 };

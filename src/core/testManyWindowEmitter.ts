@@ -1,27 +1,24 @@
 import { ChannelMessage, EmitterChannel } from "@mjt-engine/mb";
-import { LocalRemoteWindowEmitter } from "../../core/LocalRemoteWindowEmitter";
-import { Tests, CtxMapper } from "@mjt-engine/test";
+import { CtxMapper, Tests } from "@mjt-engine/test";
+import { ManyWindowEmitter } from "./ManyWindowEmitter";
 
 type StringEmitterChannel = ReturnType<typeof EmitterChannel<string>>;
 const ctxMapper: CtxMapper<StringEmitterChannel> = async (test) => {
-  const emitter = LocalRemoteWindowEmitter<ChannelMessage<string>>(
-    window,
-    window
-  );
+  const emitter = ManyWindowEmitter<ChannelMessage<string>>([window]);
   const channel = EmitterChannel<string>(emitter);
   try {
     await test(channel);
-    emitter.close();
+    emitter.removeAllListeners();
   } finally {
   }
 };
-export const testLocalRemoteWindow = async () => {
+export const testManyWindowEmitter = async () => {
   const { describe, test, runTests, expect, printResultsPretty } = Tests({
     ctxMapper,
     defaultTimeoutMs: 1000,
   });
 
-  describe("LocalRemoteWindowEmitter", () => {
+  describe("ManyWindowEmitter", () => {
     test("Basic test", async (elc) => {
       expect(elc).toBeDefined();
     });

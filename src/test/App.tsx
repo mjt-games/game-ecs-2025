@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import { Box, Stack } from "@mui/system";
-import { testLocalRemoteWindow } from "./tests/testLocalRemoteWindowEmitter";
+import { testLocalRemoteWindow } from "../core/testLocalRemoteWindowEmitter";
 
 export const App = () => {
   return (

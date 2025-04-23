@@ -58,6 +58,8 @@
     "@mjt-engine/error": "github:mjt-engine/error",
     "@mjt-engine/mb": "github:mjt-engine/mb",
     "@mjt-engine/message": "github:mjt-engine/message",
-    "@mjt-engine/object": "github:mjt-engine/object"
+    "@mjt-engine/object": "github:mjt-engine/object",
+    "@mjt-engine/observe": "github:mjt-engine/observe",
+    "@mjt-engine/test": "github:mjt-engine/test"
   }
 }

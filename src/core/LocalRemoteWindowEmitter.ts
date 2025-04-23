@@ -3,14 +3,14 @@ import { Emitter } from "@mjt-engine/mb";
 export const LocalRemoteWindowEmitter = <T>(
   local: Window,
   remote: Window
-): Emitter<T> & { close: () => void } => {
+): Emitter<T> => {
   const listeners = new WeakMap<
     (...args: any[]) => void,
     (e: MessageEvent) => void
   >();
   const abortController = new AbortController();
   return {
-    close: () => {
+    removeAllListeners: () => {
       abortController.abort();
     },
     emit: (selector: string, ...args: any[]) => {

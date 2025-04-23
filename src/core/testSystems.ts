@@ -1,9 +1,9 @@
 import { CtxMapper, Tests } from "@mjt-engine/test";
-import { EcsBridgeMessageBus } from "../../core/EcsBridgeMessageBus";
-import { Systems } from "../../core/Systems";
-import { SystemLoop } from "../../core/SystemLoop";
-import { Component } from "../../type/Component";
-import { Entity } from "../../type/Entity";
+import { EcsBridge } from "./EcsBridge";
+import { Systems } from "./Systems";
+import { SystemLoop } from "./SystemLoop";
+import { Component } from "../type/Component";
+import { Entity } from "../type/Entity";
 
 type NameComponent = Component<"character", "name", number>;
 
@@ -11,18 +11,19 @@ type TestEntity = Entity<[NameComponent]>;
 
 type CtxObject = {
   systems: Awaited<ReturnType<typeof Systems>>;
-  bus: Awaited<ReturnType<typeof EcsBridgeMessageBus<[NameComponent]>>>;
+  bus: Awaited<ReturnType<typeof EcsBridge<[NameComponent]>>>["bus"];
   update: () => Promise<void>;
   entities: TestEntity[];
 };
 const ctxMapper: CtxMapper<CtxObject> = async (test) => {
   const abortController = new AbortController();
   const entities: TestEntity[] = [];
-  const { bus, update } = await SystemLoop<[]>({
+  const { bridge, update } = await SystemLoop<[]>({
     signal: abortController.signal,
     entities,
   });
-  const systems = Systems(bus);
+  const { bus } = bridge;
+  const systems = Systems(bridge);
 
   try {
     await test({ systems, bus, update, entities });

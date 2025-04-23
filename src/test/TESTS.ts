@@ -1,8 +1,8 @@
-import { testEcsBridgeMessageBus } from "./tests/testEcsBridgeMessageBus";
-import { testLocalRemoteBinaryWindow } from "./tests/testLocalRemoteBinaryWindow";
-import { testLocalRemoteWindow } from "./tests/testLocalRemoteWindowEmitter";
-import { testManyWindowEmitter } from "./tests/testManyWindowEmitter";
-import { testSystems } from "./tests/testSystems";
+import { testEcsBridgeMessageBus } from "../core/testEcsBridge";
+import { testLocalRemoteBinaryWindow } from "../core/testLocalRemoteBinaryWindow";
+import { testLocalRemoteWindow } from "../core/testLocalRemoteWindowEmitter";
+import { testManyWindowEmitter } from "../core/testManyWindowEmitter";
+import { testSystems } from "../core/testSystems";
 
 export const TESTS: (() => Promise<void>)[] = [
   testLocalRemoteWindow,

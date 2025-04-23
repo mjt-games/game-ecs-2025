@@ -2,7 +2,7 @@ import { Tick } from "@mjt-engine/animate";
 import { isDefined, isUndefined } from "@mjt-engine/object";
 import { queryFilter } from "../common/queryFilter";
 import { EcsBridgeMap } from "./EcsBridgeMap";
-import { EcsBridgeMessageBus } from "./EcsBridgeMessageBus";
+import { EcsBridge } from "./EcsBridge";
 import { Component } from "../type/Component";
 import { Entity } from "../type/Entity";
 
@@ -10,14 +10,14 @@ export const SystemLoop = async <Components extends Component[]>({
   signal,
   entities = [],
   registrations = [],
-  localWindow,
-  remoteWindow,
+  windows = [window],
+  defaultTimeoutMs = 1000,
 }: Partial<{
   signal: AbortSignal;
   entities: Entity<Components>[];
   registrations: EcsBridgeMap<Components>["registerQuery"]["request"][];
-  localWindow: Window;
-  remoteWindow: Window;
+  windows: Window[];
+  defaultTimeoutMs: number;
 }> = {}) => {
   const updateEntities = (
     updatedEntities: Entity<Components>[],
@@ -33,12 +33,11 @@ export const SystemLoop = async <Components extends Component[]>({
     }
   };
 
-  const bus = await EcsBridgeMessageBus({
+  const bridge = await EcsBridge({
     signal,
-    localWindow,
-    remoteWindow,
+    windows,
     options: {
-      defaultTimeoutMs: 1000,
+      defaultTimeoutMs,
     },
     subscribers: {
       log: (message) => {
@@ -68,14 +67,17 @@ export const SystemLoop = async <Components extends Component[]>({
         const filteredEntities = isUndefined(query)
           ? []
           : queryFilter(query)(entities);
-        const result = await bus.request(`runSystem.${name}` as "runSystem", {
-          entities: filteredEntities as Entity<any>[],
-          ids: filteredEntities.map((e) => entities.indexOf(e)),
-          name,
+        const result = await bridge.bus.request(
+          `runSystem.${name}` as "runSystem",
+          {
+            entities: filteredEntities as Entity<any>[],
+            ids: filteredEntities.map((e) => entities.indexOf(e)),
+            name,
 
-          // @ts-ignore
-          serialId: crypto.randomUUID(),
-        });
+            // @ts-ignore
+            serialId: crypto.randomUUID(),
+          }
+        );
         const { add, update } = result.data;
         if (isDefined(update)) {
           updateEntities(
@@ -93,5 +95,5 @@ export const SystemLoop = async <Components extends Component[]>({
     }
   };
 
-  return { entities, registrations, bus, update };
+  return { entities, registrations, bridge, update };
 };

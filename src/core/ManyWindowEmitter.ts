@@ -3,7 +3,7 @@ import { Emitter } from "@mjt-engine/mb";
 export const ManyWindowEmitter = <T>(
   windows: Window[]
 ): Emitter<T> & {
-  close: () => void;
+  removeAllListeners: () => void;
   addWindow: (window: Window) => void;
   removeWindow: (window: Window) => void;
 } => {
@@ -13,7 +13,7 @@ export const ManyWindowEmitter = <T>(
   >();
   const abortController = new AbortController();
   return {
-    close: () => {
+    removeAllListeners: () => {
       abortController.abort();
     },
     addWindow: (window: Window) => {
