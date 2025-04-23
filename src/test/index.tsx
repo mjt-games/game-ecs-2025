@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom/client";
 import { App } from "./App";
-import { testLocalRemoteWindow } from "./tests/testLocalRemoteWindow";
+import { testLocalRemoteWindow } from "./tests/testLocalRemoteWindowEmitter";
 import { runAllTests } from "./runAllTests";
 
 (() => {
